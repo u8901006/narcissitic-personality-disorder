@@ -46,6 +46,8 @@ function buildDateFilter(days) {
   return `"${lookback}"[Date - Publication] : "3000"[Date - Publication]`;
 }
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 async function searchPapers(query, retmax = 60) {
   const url = new URL(PUBMED_SEARCH);
   url.searchParams.set("db", "pubmed");
@@ -54,18 +56,27 @@ async function searchPapers(query, retmax = 60) {
   url.searchParams.set("sort", "date");
   url.searchParams.set("retmode", "json");
 
-  try {
-    const resp = await fetch(url.toString(), {
-      headers: { "User-Agent": "NPDDailyReportBot/1.0" },
-      signal: AbortSignal.timeout(30000),
-    });
-    if (!resp.ok) throw new Error(`PubMed search ${resp.status}`);
-    const data = await resp.json();
-    return data?.esearchresult?.idlist || [];
-  } catch (err) {
-    console.error(`[ERROR] PubMed search failed: ${err.message}`);
-    return [];
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const resp = await fetch(url.toString(), {
+        headers: { "User-Agent": "NPDDailyReportBot/1.0" },
+        signal: AbortSignal.timeout(30000),
+      });
+      if (resp.status === 429) {
+        const wait = 5000 * (attempt + 1);
+        console.error(`[WARN] Rate limited, waiting ${wait / 1000}s...`);
+        await sleep(wait);
+        continue;
+      }
+      if (!resp.ok) throw new Error(`PubMed search ${resp.status}`);
+      const data = await resp.json();
+      return data?.esearchresult?.idlist || [];
+    } catch (err) {
+      console.error(`[ERROR] PubMed search failed: ${err.message}`);
+      if (attempt < 2) await sleep(3000);
+    }
   }
+  return [];
 }
 
 async function fetchDetails(pmids) {
@@ -160,10 +171,11 @@ async function main() {
   console.error(`[INFO] Already summarized: ${summarized.size} PMIDs`);
 
   const allPmids = new Set();
-  for (const query of SEARCH_QUERIES) {
-    const fullQuery = `(${query}) AND ${dateFilter}`;
+  for (let i = 0; i < SEARCH_QUERIES.length; i++) {
+    const fullQuery = `(${SEARCH_QUERIES[i]}) AND ${dateFilter}`;
     const pmids = await searchPapers(fullQuery, 60);
     for (const id of pmids) allPmids.add(id);
+    if (i < SEARCH_QUERIES.length - 1) await sleep(1500);
   }
 
   console.error(`[INFO] Unique PMIDs found: ${allPmids.size}`);
