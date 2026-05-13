@@ -1,0 +1,91 @@
+name: NPD Daily Report
+
+on:
+  schedule:
+    - cron: "35 0 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Target date (YYYY-MM-DD), leave empty for today"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
+        with:
+          node-version: "24"
+
+      - name: Determine date
+        id: date
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            echo "target=${{ github.event.inputs.date }}" >> "$GITHUB_OUTPUT"
+          else
+            TARGET=$(TZ=Asia/Taipei date +%Y-%m-%d)
+            echo "target=$TARGET" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Date: $(grep target "$GITHUB_OUTPUT" | cut -d= -f2)"
+
+      - name: Fetch papers from PubMed
+        run: node scripts/fetchPapers.mjs
+        env:
+          TARGET_DATE: ${{ steps.date.outputs.target }}
+          LOOKBACK_DAYS: "7"
+          MAX_PAPERS: "50"
+        continue-on-error: true
+
+      - name: Check papers data
+        id: papers
+        run: |
+          if [ -f papers.json ] && grep -q '"count"' papers.json; then
+            COUNT=$(node -e "const d=require('./papers.json'); console.log(d.count||0)")
+            echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+            echo "Papers found: $COUNT"
+          else
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            echo '{"date":"${{ steps.date.outputs.target }}","count":0,"papers":[]}' > papers.json
+            echo "No papers found"
+          fi
+
+      - name: Generate report with Zhipu AI
+        run: node scripts/generateReport.mjs
+        env:
+          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
+          ZHIPU_API_BASE: "https://open.bigmodel.cn/api/coding/paas/v4"
+          TARGET_DATE: ${{ steps.date.outputs.target }}
+          ZHIPU_MAX_TOKENS: "50000"
+          ZHIPU_TIMEOUT_MS: "480000"
+
+      - name: Generate index page
+        run: node scripts/generateIndex.mjs
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "NPD daily report: ${{ steps.date.outputs.target }}"
+          git pull --rebase origin main
+          git push
+
+      - name: Summary
+        run: |
+          echo "### NPD Daily Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Date:** ${{ steps.date.outputs.target }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Papers analyzed:** ${{ steps.papers.outputs.count }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Report:** [npd-${{ steps.date.outputs.target }}.html](https://u8901006.github.io/narcissitic-personality-disorder/npd-${{ steps.date.outputs.target }}.html)" >> "$GITHUB_STEP_SUMMARY"

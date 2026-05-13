@@ -1,0 +1,11 @@
+{
+  "name": "npd-daily-report",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetchPapers.mjs",
+    "report": "node scripts/generateReport.mjs",
+    "index": "node scripts/generateIndex.mjs"
+  }
+}
