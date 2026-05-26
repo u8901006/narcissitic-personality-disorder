@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NPD 文獻日報 · 2026年5月26日</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f6f1e8;--surface:#fffaf2;--line:#d8c5ab;--text:#2b2118;--muted:#766453;--accent:#8c4f2b;--accent-soft:#ead2bf;--card-bg:color-mix(in srgb,var(--surface) 92%,white)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(circle at top,#fff6ea 0,var(--bg) 55%,#ead8c6 100%);color:var(--text);font-family:"Noto Sans TC","PingFang TC","Helvetica Neue",Arial,sans-serif;min-height:100vh;overflow-x:hidden}
+.container{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:60px 32px 80px}
+header{display:flex;align-items:center;gap:16px;margin-bottom:52px;animation:fadeDown .6s ease both}
+.logo{width:48px;height:48px;border-radius:14px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 20px rgba(140,79,43,.25)}
+.header-text h1{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.header-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;align-items:center}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;letter-spacing:.3px}
+.badge-date{background:var(--accent-soft);border:1px solid var(--line);color:var(--accent)}
+.badge-count{background:rgba(140,79,43,.06);border:1px solid var(--line);color:var(--muted)}
+.badge-source{background:transparent;color:var(--muted);font-size:11px;padding:0 4px}
+.summary-card{background:var(--card-bg);border:1px solid var(--line);border-radius:24px;padding:28px 32px;margin-bottom:32px;box-shadow:0 20px 60px rgba(61,36,15,.06);animation:fadeUp .5s ease .1s both}
+.summary-card h2{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);margin-bottom:16px}
+.summary-text{font-size:15px;line-height:1.8;color:var(--text)}
+.section{margin-bottom:36px;animation:fadeUp .5s ease both}
+.section-title{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.section-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--accent-soft)}
+.news-card{background:var(--card-bg);border:1px solid var(--line);border-radius:24px;padding:22px 26px;margin-bottom:12px;box-shadow:0 8px 30px rgba(61,36,15,.04);transition:background .2s,border-color .2s,transform .2s}
+.news-card:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(61,36,15,.08)}
+.news-card.featured{border-left:3px solid var(--accent)}
+.news-card.featured:hover{border-color:var(--accent)}
+.card-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rank-badge{background:var(--accent);color:#fff7f0;font-weight:700;font-size:12px;padding:2px 8px;border-radius:6px}
+.emoji-icon{font-size:18px}
+.card-header-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.emoji-sm{font-size:14px}
+.news-card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5}
+.title-en{font-size:12px;color:var(--muted);margin-bottom:8px;font-style:italic;opacity:.7}
+.journal-source{font-size:12px;color:var(--accent);margin-bottom:8px;opacity:.8}
+.news-card p{font-size:13.5px;line-height:1.75;color:var(--muted)}
+.card-footer{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tag{padding:2px 9px;background:var(--accent-soft);border-radius:999px;font-size:11px;color:var(--accent)}
+.news-card a{font-size:12px;color:var(--accent);text-decoration:none;opacity:.7;margin-left:auto}
+.news-card a:hover{opacity:1}
+.utility-high{color:#5a7a3a;font-size:11px;font-weight:600;padding:2px 8px;background:rgba(90,122,58,.1);border-radius:4px}
+.utility-mid{color:#9f7a2e;font-size:11px;font-weight:600;padding:2px 8px;background:rgba(159,122,46,.1);border-radius:4px}
+.utility-low{color:var(--muted);font-size:11px;font-weight:600;padding:2px 8px;background:rgba(118,100,83,.08);border-radius:4px}
+.utility-sm{font-size:10px}
+.utility-reason{margin-top:10px;font-size:12.5px;color:var(--accent);opacity:.85;font-style:italic}
+.pico-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;padding:12px;background:rgba(255,253,249,.8);border-radius:14px;border:1px solid var(--line)}
+.pico-item{display:flex;gap:8px;align-items:baseline}
+.pico-label{font-size:10px;font-weight:700;color:#fff7f0;background:var(--accent);padding:2px 6px;border-radius:4px;flex-shrink:0}
+.pico-text{font-size:12px;color:var(--muted);line-height:1.4}
+.keywords-section{margin-bottom:36px}
+.keywords{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.keyword{padding:5px 14px;background:var(--accent-soft);border:1px solid var(--line);border-radius:20px;font-size:12px;color:var(--accent);cursor:default;transition:background .2s}
+.keyword:hover{background:rgba(140,79,43,.18)}
+.topic-section{margin-bottom:36px}
+.topic-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.topic-name{font-size:13px;color:var(--muted);width:120px;flex-shrink:0;text-align:right}
+.topic-bar-bg{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.topic-bar{height:100%;background:linear-gradient(90deg,var(--accent),#c47a4a);border-radius:4px;transition:width .6s ease}
+.topic-count{font-size:12px;color:var(--accent);width:24px}
+.clinic-banner{margin-top:48px;animation:fadeUp .5s ease .4s both}
+.clinic-links{display:flex;flex-direction:column;gap:10px}
+.clinic-link{display:flex;align-items:center;gap:14px;padding:18px 24px;background:var(--card-bg);border:1px solid var(--line);border-radius:24px;text-decoration:none;color:var(--text);transition:all .2s;box-shadow:0 8px 30px rgba(61,36,15,.04)}
+.clinic-link:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 12px 40px rgba(61,36,15,.08)}
+.clinic-icon{font-size:28px;flex-shrink:0}
+.clinic-info{flex:1}
+.clinic-name{font-size:15px;font-weight:700;color:var(--text)}
+.clinic-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.clinic-arrow{font-size:18px;color:var(--accent);font-weight:700}
+footer{margin-top:32px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;animation:fadeUp .5s ease .5s both}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--accent)}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.container{padding:36px 18px 60px}.summary-card,.news-card{padding:20px 18px}.pico-grid{grid-template-columns:1fr}footer{flex-direction:column;gap:6px;text-align:center}.topic-name{width:80px;font-size:11px}.clinic-links{gap:8px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🪞</div>
+    <div class="header-text">
+      <h1>NPD 文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">2026年5月26日</span>
+        <span class="badge badge-count">📊 15 篇文獻</span>
+        <span class="badge badge-source">PubMed · Zhipu AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日總覽</h2>
+    <p class="summary-text">今日文獻呈現三大亮點：FFNI-SF在臨床與非臨床樣本間的測量不變性獲得驗證，為NPD評估工具的跨情境使用提供堅實基礎；脆弱自戀與男性孤獨感的縱貫性中介模型，揭示了臨床介入的關鍵路徑；暗黑三角的神經架構系統性回顧首次整合自戀與預設模式網路的連結，深化了對自戀神經基礎的理解。</p>
+  </div>
+
+  <div class="section" style="animation-delay:.2s">
+    <div class="section-title"><span class="section-icon">🏆</span>今日精選 TOP 7</div>
+    <div class="news-card featured">
+  <div class="card-header">
+    <span class="rank-badge">#1</span>
+    <span class="emoji-icon">📏</span>
+    <span class="journal-source">Assessment</span>
+  </div>
+  <h3>五因子自戀量表簡版在心理治療史群組中的測量不變性</h3>
+  <p class="title-en">Measurement Invariance of the Five-Factor Narcissism Inventory-Short Form According to Psychological Treatment History.</p>
+  <p>FFNI-SF在具與不具心理治療史群組間達成尺度與殘差不變性，且有治療史者呈現較低對抗性與較高神經質，支持此量表作為跨臨床情境的多維度自戀評估工具。</p>
+  <div class="pico-grid">
+    <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">473名社區參與者（36%有心理治療史）</span></div>
+    <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">FFNI-SF三因子結構（對抗性、能動外向性、自戀神經質）的測量不變性檢驗</span></div>
+    <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">有無心理治療史（含目前或過去）兩組比較</span></div>
+    <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">達成尺度與殘差不變性；有治療史者在對抗性顯著較低、神經質顯著較高</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="tag">評估量表</span><span class="tag">病態自戀</span><span class="tag">心理治療</span>
+    <span class="utility-high">臨床實用性：高</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/40626623/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+  <p class="utility-reason">💡 直接解決臨床工作者使用自戀量表時最關心的跨群組可比性問題，並揭示臨床樣本中自戀特質的表達差異。</p>
+</div>
+<div class="news-card featured">
+  <div class="card-header">
+    <span class="rank-badge">#2</span>
+    <span class="emoji-icon">🧍</span>
+    <span class="journal-source">Psychology and Psychotherapy</span>
+  </div>
+  <h3>病態自戀與男性孤獨感：對男性生活滿意度的意涵</h3>
+  <p class="title-en">Pathological narcissism and loneliness among men: Implications for men's satisfaction with life.</p>
+  <p>為期六個月的前瞻性研究發現，僅脆弱自戀（非誇大自戀）顯著預測男性孤獨感，且孤獨感中介了脆弱自戀對生活滿意度的負向影響，揭示了男性自戀患者治療的關鍵切入點。</p>
+  <div class="pico-grid">
+    <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">319名尋求線上心理健康協助的男性（平均38.85歲）</span></div>
+    <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">基線期測量病態自戀（脆弱自戀與誇大自戀），三個月後測量孤獨感，六個月後測量生活滿意度</span></div>
+    <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">脆弱自戀與誇大自戀對孤獨感的預測力比較</span></div>
+    <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">僅脆弱自戀顯著預測孤獨感；孤獨感顯著中介脆弱自戀與六個月後生活滿意度下降的關聯</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="tag">病態自戀</span><span class="tag">脆弱自戀</span><span class="tag">羞恥感</span>
+    <span class="utility-high">臨床實用性：高</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/41820820/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+  <p class="utility-reason">💡 明確指出孤獨感是脆弱自戀男性生活品質下降的中介機制，為臨床介入提供可操作的目標（處理孤獨感而非直接處理自戀）。</p>
+</div>
+<div class="news-card featured">
+  <div class="card-header">
+    <span class="rank-badge">#3</span>
+    <span class="emoji-icon">🧠</span>
+    <span class="journal-source">Psychiatry Research: Neuroimaging</span>
+  </div>
+  <h3>操縱地圖：暗黑三角如何塑造大腦</h3>
+  <p class="title-en">The manipulation map: How the Dark Triad shapes the brain.</p>
+  <p>首個整合16項神經影像研究的系統性回顧指出，暗黑三角共享紋狀體獎賞敏感度增高的核心特徵，而自戀特質獨特地表現為與自我參照處理相關的預設模式網路功能異常。</p>
+  <div class="pico-grid">
+    <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">16項實證研究共4246名參與者</span></div>
+    <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">系統性回顧暗黑三角特質的神經結構、功能與遺傳相關證據</span></div>
+    <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">暗黑三角三特質間的神經相關比較（馬基維利主義、自戀、心理病態）</span></div>
+    <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">共享紋狀體獎賞敏感度；自戀與預設模式網路自我參照處理異常相關，馬基維利主義與前額葉-島葉活動增強相關，心理病態與杏仁核-眼眶額葉迴路缺損相關</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="tag">暗黑三角</span><span class="tag">神經科學</span><span class="tag">預設模式網路</span><span class="tag">自我參照</span>
+    <span class="utility-mid">臨床實用性：中</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/42068887/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+  <p class="utility-reason">💡 為自戀的「自我參照處理過度活化」提供神經科學基礎，有助於向患者與家屬解釋NPD的生物學機制，但尚無直接治療應用。</p>
+</div>
+<div class="news-card featured">
+  <div class="card-header">
+    <span class="rank-badge">#4</span>
+    <span class="emoji-icon">🔄</span>
+    <span class="journal-source">Journal of Personality</span>
+  </div>
+  <h3>自我、提升與排斥：自戀與地位及包容的雙向前瞻性關聯</h3>
+  <p class="title-en">Ego, Elevation, and Exclusion: Bidirectional Prospective Associations Between Narcissism and Status and Inclusion.</p>
+  <p>三波縱貫研究揭示誇大自戀與地位渴望/獲得呈雙向增強循環，而脆弱自戀則在中期降低對地位與包容的渴望，支持自戀動態模型而非靜態特質觀點。</p>
+  <div class="pico-grid">
+    <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">528名大學生，三波追蹤（每波間隔兩週）</span></div>
+    <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">測量誇大自戀、能動自戀、對抗自戀與脆弱自戀，以及地位渴望/知覺、包容渴望/知覺、果斷性與親和性</span></div>
+    <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同自戀表現型對地位vs.包容動機的預測差異</span></div>
+    <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">誇大/能動/對抗自戀與地位渴望及知覺雙向正向關聯；脆弱自戀與地位及包容渴望呈下降趨勢</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="tag">誇大自戀</span><span class="tag">脆弱自戀</span><span class="tag">自我膨脹</span>
+    <span class="utility-mid">臨床實用性：中</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/42153287/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+  <p class="utility-reason">💡 挑戰將自戀視為固定特質的觀點，提示治療中可透過干預地位追求行為來間接影響自戀表現，為動態取向治療提供理論支持。</p>
+</div>
+<div class="news-card featured">
+  <div class="card-header">
+    <span class="rank-badge">#5</span>
+    <span class="emoji-icon">🔗</span>
+    <span class="journal-source">Journal of Psychiatric Research</span>
+  </div>
+  <h3>雙重診斷的結構核心：物質使用疾患伴與不伴共病人格病理的人格結構剖面</h3>
+  <p class="title-en">The structural core of dual diagnosis: Personality structure profiles in substance use disorders with and without Comorbid personality pathology.</p>
+  <p>以Kernberg物件關係理論為基礎的STIPO-R評估發現，SUD患者即使未達PD診斷門檻，在身份認同、物件關係、防衛機制與自戀等面向的損害程度與雙重診斷患者相當，支持人格功能向度模型。</p>
+  <div class="pico-grid">
+    <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">60名非臨床對照、45名SUD門診患者、42名SUD合併PD住院患者</span></div>
+    <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">以STIPO-R半結構式訪談評估人格結構（身份認同、物件關係、防衛、攻擊、道德功能、自戀）</span></div>
+    <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">SUD合併PD組 vs. 單純SUD組 vs. 非臨床組</span></div>
+    <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">兩臨床組在所有人格功能領域均顯著差於非臨床組；控制年齡性別後，SUD組與雙重診斷組無顯著差異</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="tag">自戀型人格疾患</span><span class="tag">共病</span><span class="tag">邊緣型人格</span>
+    <span class="utility-mid">臨床實用性：中</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/42061207/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+  <p class="utility-reason">💡 提醒臨床工作者不應僅依賴PD診斷來判斷SUD患者的人格功能損害程度，STIPO-R可作為捕捉次門檻人格病理的實用工具。</p>
+</div>
+<div class="news-card featured">
+  <div class="card-header">
+    <span class="rank-badge">#6</span>
+    <span class="emoji-icon">📚</span>
+    <span class="journal-source">Acta Psychologica</span>
+  </div>
+  <h3>失敗恐懼在暗黑三角人格特質與學業倦怠關係中的角色</h3>
+  <p class="title-en">The role of fear of failure in the relationship between the Dark Triad personality traits and academic burnout.</p>
+  <p>針對荷蘭大學生的研究發現，心理病態與馬基維利主義透過失敗恐懼預測學業倦怠（男性效應更強），而誇大自戀與脆弱自戀雖與失敗恐懼正相關，卻未直接預測學業倦怠，挑戰既有假設。</p>
+  <div class="pico-grid">
+    <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">301名荷蘭大學生（平均22.8歲，34.6%男性）</span></div>
+    <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">測量暗黑三角四面向（心理病態、誇大自戀、脆弱自戀、馬基維利主義）、失敗恐懼與學業倦怠</span></div>
+    <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">四種人格特質對學業倦怠的直接與間接效應比較，以性別為調節變項</span></div>
+    <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">心理病態與馬基維利主義正向預測學業倦怠，心理病態的間接效應在男性中更強；誇大與脆弱自戀無顯著直接或間接效應</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="tag">誇大自戀</span><span class="tag">脆弱自戀</span><span class="tag">暗黑三角</span>
+    <span class="utility-mid">臨床實用性：中</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/41997077/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+  <p class="utility-reason">💡 區分不同自戀類型在壓力情境下的表現差異，有助於學生心理諮商中精準識別高風險族群與情緒機制。</p>
+</div>
+<div class="news-card featured">
+  <div class="card-header">
+    <span class="rank-badge">#7</span>
+    <span class="emoji-icon">⚠️</span>
+    <span class="journal-source">Journal of Interpersonal Violence</span>
+  </div>
+  <h3>大學生網路約會虐待的潛在剖面分析：與不適應人格特質、負向情緒及衝動性的關聯</h3>
+  <p class="title-en">A Latent Profile Analysis of Cyber Dating Abuse Among College Students: Associations With Maladaptive Personality Traits, Negative Emotionality, and Impulsivity.</p>
+  <p>潛在剖面分析顯示，低不適應人格特質但具次臨床負向情緒者仍有較高網路約會虐待風險，提示負向情緒可能作為催化劑加劇衝動性網路虐待行為，自戀特質在高風險剖面中扮演角色。</p>
+  <div class="pico-grid">
+    <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">590名以拉丁裔為主的女大學生（平均20.35歲，75.6%女性）</span></div>
+    <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">測量網路約會虐待（性/非性）、暗黑三角、憂鬱焦慮壓力與衝動性，進行潛在剖面分析</span></div>
+    <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同人格-情緒-衝動性剖面在網路約會虐待施暴與受害上的差異</span></div>
+    <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">低不適應人格但高負向情緒剖面者仍有顯著網路約會虐待；高衝動+高負向情緒者更可能線上尋求認同而成为受害者</span></div>
+  </div>
+  <div class="card-footer">
+    <span class="tag">暗黑三角</span><span class="tag">親密伴侶暴力</span><span class="tag">社群媒體</span>
+    <span class="utility-mid">臨床實用性：中</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/40437793/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+  <p class="utility-reason">💡 將自戀置於更廣泛的風險因子網絡中理解，有助於親密關係暴力防治中識別不同機制的高風險個體。</p>
+</div>
+  </div>
+
+  <div class="section" style="animation-delay:.3s">
+    <div class="section-title"><span class="section-icon">📚</span>其他文獻</div>
+    <div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">🏢</span>
+    <span class="journal-source">International Journal of Psychology</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>黑暗領主需要黑暗空間：不道德組織文化對暗黑三角特質與工作結果關係的影響</h3>
+  <p>兩項研究（N=1,077及N=275）發現不道德組織文化會放大暗黑三角特質與不道德行為的連結，強調組織情境在「黑暗面」研究中的重要性。</p>
+  <div class="card-footer">
+    <span class="tag">暗黑三角</span><span class="tag">職場自戀</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/42019648/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+<div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">📺</span>
+    <span class="journal-source">Acta Psychologica</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>螢幕的暗影：暗黑四角特質、社交認同與狂看行為如何加劇數位疲勞</h3>
+  <p>結構方程模型顯示暗黑四角特質透過狂看行為預測數位疲勞，而觀看社群的社交認同強化此路徑，提示以認同為基礎的介入策略之價值。</p>
+  <div class="card-footer">
+    <span class="tag">暗黑四角</span><span class="tag">社群媒體</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/42019395/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+<div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">👥</span>
+    <span class="journal-source">Emotion (Washington, D.C.)</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>規範或非規範？身分認同動機的集體行動中的情緒歷程</h3>
+  <p>跨三個樣本（波蘭與美國）的研究發現，非親社會的情緒調節中介集體自戀與非規範集體行動的關聯，而親社會情緒調節中介安全群體認同與規範行動。</p>
+  <div class="card-footer">
+    <span class="tag">自我膨脹</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/41396510/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+<div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">❤️</span>
+    <span class="journal-source">International Journal of Psychophysiology</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>檢視暗黑三角人格特質與急性心理壓力下心血管反應性的關聯</h3>
+  <p>自戀與較低自報焦慮及收縮壓/平均動脈壓反應相關，心理病態與較低自報壓力及心率反應相關，但部分效應在嚴格分析中不穩定。</p>
+  <div class="card-footer">
+    <span class="tag">暗黑三角</span><span class="tag">神經科學</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/42167654/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+<div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">🐷</span>
+    <span class="journal-source">International Journal of Psychology</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>暗黑三角特質影響對動物叫聲中情緒的知覺</h3>
+  <p>心理病態分數較高者更易將社交叫聲誤分類為痛苦叫聲並將社交叫聲知覺為更負向，馬基維利主義分數較高者則將兩類叫聲知覺為更正向。</p>
+  <div class="card-footer">
+    <span class="tag">暗黑三角</span><span class="tag">同理心缺損</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/41933270/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+<div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">⚖️</span>
+    <span class="journal-source">Psychological Reports</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>將「光」照進道德基礎：光明vs.暗黑人格與道德基礎的關聯更強</h3>
+  <p>「不對稱假說」獲得支持：光明人格特質對各道德基礎的預測力均強於暗黑人格，暗黑人格的獨特變異僅與道德基礎呈小程度相關。</p>
+  <div class="card-footer">
+    <span class="tag">暗黑三角</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/39047070/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+<div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">💭</span>
+    <span class="journal-source">Journal of Psychiatric Research</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>適應不良白日夢的多維模型：整合神經發展特質、數位成癮、心理社會脆弱性與心理健康</h3>
+  <p>大學生適應不良白日夢盛行率18.3%，自戀特質與其嚴重度正相關，但低自尊、ADHD症狀與自閉特質是最強預測因子。</p>
+  <div class="card-footer">
+    <span class="tag">病態自戀</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/42102505/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+<div class="news-card">
+  <div class="card-header-row">
+    <span class="emoji-sm">📱</span>
+    <span class="journal-source">Psychological Reports</span>
+    <span class="utility-low utility-sm">低</span>
+  </div>
+  <h3>E-mmortal：死亡焦慮與自拍行為的關聯</h3>
+  <p>死亡焦慮完全中介自戀與自拍動機及自拍頻率的關聯，提示自戀與自拍行為之間廣為 documented 的關聯可能根本上驅動於死亡焦慮。</p>
+  <div class="card-footer">
+    <span class="tag">自拍文化</span><span class="tag">社群媒體</span>
+    <a href="https://pubmed.ncbi.nlm.nih.gov/39088842/" target="_blank" rel="noopener">PubMed →</a>
+  </div>
+</div>
+  </div>
+
+  <div class="topic-section section" style="animation-delay:.35s">
+    <div class="section-title"><span class="section-icon">📊</span>主題分布</div>
+    <div class="topic-row">
+  <span class="topic-name">暗黑三角</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+  <span class="topic-count">7</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">病態自戀</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:43%"></div></div>
+  <span class="topic-count">3</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">脆弱自戀</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:43%"></div></div>
+  <span class="topic-count">3</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">誇大自戀</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:43%"></div></div>
+  <span class="topic-count">3</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">社群媒體</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:43%"></div></div>
+  <span class="topic-count">3</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">神經科學</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:29%"></div></div>
+  <span class="topic-count">2</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">評估量表</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+  <span class="topic-count">1</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">共病</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+  <span class="topic-count">1</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">親密伴侶暴力</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+  <span class="topic-count">1</span>
+</div>
+<div class="topic-row">
+  <span class="topic-name">職場自戀</span>
+  <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+  <span class="topic-count">1</span>
+</div>
+  </div>
+
+  <div class="keywords-section section" style="animation-delay:.4s">
+    <div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div>
+    <div class="keywords"><span class="keyword">測量不變性</span>
+<span class="keyword">脆弱自戀</span>
+<span class="keyword">孤獨感</span>
+<span class="keyword">預設模式網路</span>
+<span class="keyword">縱貫研究</span>
+<span class="keyword">地位追求</span>
+<span class="keyword">雙重診斷</span>
+<span class="keyword">STIPO-R</span>
+<span class="keyword">學業倦怠</span>
+<span class="keyword">失敗恐懼</span></div>
+  </div>
+
+  <div class="clinic-banner">
+    <div class="section-title"><span class="section-icon">🏥</span>相關資源</div>
+    <div class="clinic-links">
+      <a class="clinic-link" href="https://www.leepsyclinic.com/" target="_blank" rel="noopener">
+        <span class="clinic-icon">🏥</span>
+        <div class="clinic-info">
+          <div class="clinic-name">李政洋身心診所</div>
+          <div class="clinic-desc">專業身心科門診 · 台北</div>
+        </div>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a class="clinic-link" href="https://blog.leepsyclinic.com/" target="_blank" rel="noopener">
+        <span class="clinic-icon">📬</span>
+        <div class="clinic-info">
+          <div class="clinic-name">訂閱電子報</div>
+          <div class="clinic-desc">接收最新心理健康資訊</div>
+        </div>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a class="clinic-link" href="https://buymeacoffee.com/CYlee" target="_blank" rel="noopener">
+        <span class="clinic-icon">☕</span>
+        <div class="clinic-info">
+          <div class="clinic-name">Buy Me a Coffee</div>
+          <div class="clinic-desc">支持我們持續產出優質內容</div>
+        </div>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Powered by PubMed + Zhipu AI · <a href="https://github.com/u8901006/narcissitic-personality-disorder">GitHub</a></span>
+    <span>NPD Research Daily Report</span>
+  </footer>
+</div>
+</body>
+</html>
