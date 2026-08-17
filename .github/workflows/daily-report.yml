@@ -57,25 +57,59 @@ jobs:
             COUNT=$(node -e "const d=require('./papers.json'); console.log(d.count||0)")
             echo "count=$COUNT" >> "$GITHUB_OUTPUT"
             echo "Papers found: $COUNT"
+            if [ "$COUNT" -eq 0 ]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+            fi
           else
             echo "count=0" >> "$GITHUB_OUTPUT"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
             echo '{"date":"${{ steps.date.outputs.target }}","count":0,"papers":[]}' > papers.json
             echo "No papers found"
           fi
 
-      - name: Generate report with Zhipu AI
-        run: node scripts/generateReport.mjs
+      - name: Configure NVIDIA Nemotron backend
+        if: steps.papers.outputs.skip != 'true'
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path("scripts/generateReport.mjs")
+          s = p.read_text(encoding="utf-8")
+          for old, new in [
+              ("GLM-5-Turbo", "nvidia/nemotron-3-super-120b-a12b"),
+              ("glm-5-turbo", "nvidia/nemotron-3-super-120b-a12b"),
+              ("GLM-4.7-Flash", "nvidia/nemotron-3-nano-30b-a3b"),
+              ("glm-4.7-flash", "nvidia/nemotron-3-nano-30b-a3b"),
+              ("GLM-4.7", "nvidia/nemotron-3-nano-30b-a3b"),
+              ("glm-4.7", "nvidia/nemotron-3-nano-30b-a3b"),
+          ]:
+              s = s.replace(old, new)
+          s = re.sub(r"max_tokens:\s*[0-9_]+,", "max_tokens: 16384,", s)
+          s = s.replace("temperature: 0.3", "temperature: 1.0")
+          s = s.replace("top_p: 0.9", "top_p: 0.95")
+          p.write_text(s, encoding="utf-8")
+          PY
+
+      - name: Generate report with NVIDIA Nemotron
+        if: steps.papers.outputs.skip != 'true'
+        run: |
+          test -n "$ZHIPU_API_KEY" || { echo "::error::Missing NVIDIA_API_KEY repository secret"; exit 1; }
+          node scripts/generateReport.mjs
         env:
-          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
-          ZHIPU_API_BASE: "https://open.bigmodel.cn/api/coding/paas/v4"
+          ZHIPU_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          ZHIPU_API_BASE: "https://integrate.api.nvidia.com/v1"
           TARGET_DATE: ${{ steps.date.outputs.target }}
-          ZHIPU_MAX_TOKENS: "50000"
+          ZHIPU_MAX_TOKENS: "16384"
           ZHIPU_TIMEOUT_MS: "480000"
 
       - name: Generate index page
+        if: steps.papers.outputs.skip != 'true'
         run: node scripts/generateIndex.mjs
 
       - name: Commit and push
+        if: steps.papers.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -86,8 +120,9 @@ jobs:
           git push
 
       - name: Summary
+        if: always()
         run: |
           echo "### NPD Daily Report" >> "$GITHUB_STEP_SUMMARY"
           echo "**Date:** ${{ steps.date.outputs.target }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Papers analyzed:** ${{ steps.papers.outputs.count }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Papers analyzed:** ${{ steps.papers.outputs.count || '0' }}" >> "$GITHUB_STEP_SUMMARY"
           echo "**Report:** [npd-${{ steps.date.outputs.target }}.html](https://u8901006.github.io/narcissitic-personality-disorder/npd-${{ steps.date.outputs.target }}.html)" >> "$GITHUB_STEP_SUMMARY"
